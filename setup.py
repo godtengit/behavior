@@ -9,7 +9,7 @@ from setuptools import setup, find_packages
 here = pathlib.Path(__file__).parent.resolve()
 
 setup(
-    name="hx711-rpi-py",
+    name="hxpy",
     version="1.57.0",
     license="MIT",
     description="Python bindings for Raspberry Pi HX711 C++ Library",
