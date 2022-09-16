@@ -7,8 +7,8 @@ from utils.prompts import *
 from utils.dframe import *
 
 data = []
-max01 = 0
-max02 = 0
+max01 = 0.0
+max02 = 0.0
 
 test = "grip"
 experiment = ""
@@ -54,16 +54,15 @@ def getForce01(max01):
     # Right Hand
     with AdvancedHX711(24, 23, 3045, 157432, Rate.HZ_80) as hx:
         while True:
-            max01 = max(max01, hx.weight(1))
-            return max01
+            max01 = max(max01, float(hx.weight(1)))
+
 
 
 def getForce02(max02):
     # Left Hand
     with AdvancedHX711(27, 17, -3082, 115338, Rate.HZ_80) as hx:
         while True:
-            max02 = max(max02, hx.weight(1))
-            return max02
+            max02 = max(max02, float(hx.weight(1)))
 
 
 def resetForce(max01, max02):

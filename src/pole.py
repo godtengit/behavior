@@ -43,7 +43,7 @@ def poleTest(wmin, tmin, tmax, data): # minweight, mintime, maxtime
     
     with AdvancedHX711(15, 14, 1, 0, Rate.HZ_80) as hx:
         while True:
-            mass = hx.weight(1)
+            mass = float(hx.weight(1))
 
             if mass > wmin and loaded % 2 == 0:
                 tStart = time.perf_counter()
