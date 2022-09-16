@@ -1,15 +1,17 @@
 import os
+import sys
 import time
 from HX711 import AdvancedHX711, Rate
 from pynput import keyboard
-from .prompts import *
-from .dframePOLE import *
+from utils.prompts import *
+from utils.dframe import *
 
 data = []
-minWeight = 0
-minTime = 0.0
-maxTime = 0.0
+minWeight = 10
+minTime = 3.0
+maxTime = 20.0
 
+test = "pole"
 experiment = ""
 group = ""
 boxes = ""
@@ -17,7 +19,8 @@ mice = ""
 trials = ""
 initials = ""
 
-def onPress(key, data, f1, f2):
+
+def onPress(key, data, exp, grp, box, mice, trs, inits, test):
     if key == keyboard.KEY.esc: 
         return False
         sys.exit(os.EX_USAGE)
@@ -25,14 +28,12 @@ def onPress(key, data, f1, f2):
         k = key.char
     except:
         k = key.name
-
     if k in ['space']:
         r = data.pop()
         print("Removed: {:.3f}".format(r))
-    if k in ['z']:
-        resetForce()
     if k in ['enter']:
-        cleanData(data)
+        cleanExit(data, exp, grp, box, mice, trs, inits, test)
+
 
 def poleTest(wmin, tmin, tmax, data) # minweight, mintime, maxtime
     loaded = 0
@@ -60,11 +61,13 @@ def poleTest(wmin, tmin, tmax, data) # minweight, mintime, maxtime
                 data.append(tElapsed)
                 print("Test#: {} - Time(s): {:.3f}".format(int(len(data)), tElapsed))
 
+
 if __name__ == "__main__":
 
     getInfo(experiment, group, boxes, mice, trials, initials)
 
-    listener = keyboard.Listener(onPress = lambda event:onPress(event, data))
+    listener = keyboard.Listener(onPress = lambda event:onPress(event, data, experiment, group, boxes, mice, trials, initials, test))
     listener.start()
 
     poleTest(minWeight, minTime, maxTime, data)
+    

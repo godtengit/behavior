@@ -29,3 +29,4 @@ def getInfo():
     return experiment, group, boxes, mice, trials, initials
 
 if __name__ == "__main__":
+    
