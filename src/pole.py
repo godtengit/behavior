@@ -35,7 +35,7 @@ def onPress(key, data, exp, grp, box, mice, trs, inits, test):
         cleanExit(data, exp, grp, box, mice, trs, inits, test)
 
 
-def poleTest(wmin, tmin, tmax, data) # minweight, mintime, maxtime
+def poleTest(wmin, tmin, tmax, data): # minweight, mintime, maxtime
     loaded = 0
     tStart = 0.0
     tEnd = 0.0

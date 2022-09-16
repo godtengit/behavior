@@ -27,6 +27,3 @@ def getInfo():
         initials = input("Initials: ").strip().upper()
 
     return experiment, group, boxes, mice, trials, initials
-
-if __name__ == "__main__":
-    

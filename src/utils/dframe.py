@@ -24,7 +24,7 @@ def makeDF(data, boxes, mice, trials, test):
                 columns_label.append("Trial {}{}".format(i, hand))
     else:
         for k in range(1, trials + 1):
-        columns_label.append("Trial {}".format(k))    
+            columns_label.append("Trial {}".format(k))    
 
     if test == "grip":
         n = trials * 2
@@ -66,7 +66,3 @@ def cleanExit(data, experiment, group, boxes, mice, trials, initials, test):
         print("Total tests: {}".format(int(len(data))))
     
     sys.exit(os.EX_OK)
-
-
-if __name__ == "__main__":
-    
