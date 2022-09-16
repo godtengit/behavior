@@ -41,7 +41,7 @@ def poleTest(wmin, tmin, tmax, data) # minweight, mintime, maxtime
     tEnd = 0.0
     tElapsed = 0.0
     
-    with AdvancedHX711(15, 14, 1, 0, Rate.HZ_80) as hx
+    with AdvancedHX711(15, 14, 1, 0, Rate.HZ_80) as hx:
         while True:
             mass = hx.weight(1)
 

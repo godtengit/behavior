@@ -34,7 +34,7 @@ def onPress(key, data, f1, f2, exp, grp, box, mice, trs, inits, test):
     if k in ['z']:
         resetForce(f1, f2)
     if k in ['enter']:
-        cleanExit(data, experiment, group, boxes, mice, trials, initials, test)
+        cleanExit(data, exp, grp, box, mice, trs, inits, test)
 
 
 def pinData(data, f1, f2):
@@ -52,7 +52,7 @@ def showData(f1, f2):
 
 def getForce01():
     # Right Hand
-    with AdvancedHX711(24, 23, 3045, 157432, Rate.HZ_80) as hx
+    with AdvancedHX711(24, 23, 3045, 157432, Rate.HZ_80) as hx:
         while True:
             max01 = max(max01, hx.weight(1))
             return max01
@@ -60,7 +60,7 @@ def getForce01():
 
 def getForce02():
     # Left Hand
-    with AdvancedHX711(27, 17, -3082, 115338, Rate.HZ_80) as hx
+    with AdvancedHX711(27, 17, -3082, 115338, Rate.HZ_80) as hx:
         while True:
             max02 = max(max02, hx.weight(1))
             return max02
