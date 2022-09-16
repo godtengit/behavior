@@ -76,7 +76,7 @@ if __name__ == "__main__":
 
     getInfo(experiment, group, boxes, mice, trials, initials)
 
-    listener = keyboard.Listener(onPress = 
+    listener = keyboard.Listener(on_press = 
         lambda event:onPress(
             event, data, max01, max02, 
             experiment, group, boxes, 
