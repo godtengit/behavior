@@ -50,7 +50,7 @@ def showData(f1, f2):
     print("Peak 02 (g): {:.3f}".format(f2))
 
 
-def getForce01():
+def getForce01(max01):
     # Right Hand
     with AdvancedHX711(24, 23, 3045, 157432, Rate.HZ_80) as hx:
         while True:
@@ -58,7 +58,7 @@ def getForce01():
             return max01
 
 
-def getForce02():
+def getForce02(max02):
     # Left Hand
     with AdvancedHX711(27, 17, -3082, 115338, Rate.HZ_80) as hx:
         while True:
@@ -84,8 +84,8 @@ if __name__ == "__main__":
             mice, trials, initials, test))
     listener.start()
 
-    p1 = Process(target=getForce01())
-    p2 = Process(target=getForce02())
+    p1 = Process(target=getForce01(max01))
+    p2 = Process(target=getForce02(max02))
     p1.start()
     p2.start()
     
