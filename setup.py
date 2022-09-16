@@ -39,7 +39,13 @@ setup(
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     python_requires=">=3.6, <4",
-    install_requires=[],
+    install_requires=[
+        "numpy",
+        "pandas",
+        "pynput",
+        "openpyxl",
+        "multiprocessing"
+    ],
     extras_require={},
     package_data={},
     data_files=[],
