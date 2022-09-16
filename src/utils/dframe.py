@@ -10,7 +10,7 @@ def rmWspace(str):
 
 def makeDF(data, boxes, mice, trials, test):
     rows_label = []
-    colums_label = []
+    columns_label = []
     n = 0
 
     for box in range(1, boxes + 1):
@@ -21,7 +21,7 @@ def makeDF(data, boxes, mice, trials, test):
         for i in range(1, trials + 1):
             for j in range(2):
                 hand = 'R' if j == 0 else "L"
-                colums_label.append("Trial {}{}".format(i, hand))
+                columns_label.append("Trial {}{}".format(i, hand))
     else:
         for k in range(1, trials + 1):
         columns_label.append("Trial {}".format(k))    
