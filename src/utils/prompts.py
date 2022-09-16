@@ -1,4 +1,4 @@
-def getInfo():
+def getInfo(experiment, group, boxes, mice, trials, initials):
     experiment = input("Name of experiment: ").strip()
     while not experiment:
         experiment = input("Name of experiment: ").strip()
