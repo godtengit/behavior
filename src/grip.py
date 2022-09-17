@@ -19,7 +19,7 @@ trials = ""
 initials = ""
 
 def onPress(key, data, f1, f2, exp, grp, box, mice, trs, inits, test):
-    if key == keyboard.KEY.esc: 
+    if key == keyboard.Key.esc: 
         return False
         sys.exit(os.EX_USAGE)
     try:
@@ -37,7 +37,7 @@ def onPress(key, data, f1, f2, exp, grp, box, mice, trs, inits, test):
         cleanExit(data, exp, grp, box, mice, trs, inits, test)
 
 
-def pinData(data, f1, f2):
+def pinData(data, f1, f2):,
     data.append(f1)
     data.append(f2)
     print("Test #: ", int(len(data)/2))
@@ -83,8 +83,8 @@ if __name__ == "__main__":
             mice, trials, initials, test))
     listener.start()
 
-    p1 = Process(target=getForce01(max01))
-    p2 = Process(target=getForce02(max02))
+    p1 = Process(target=getForce01, args=(max01))
+    p2 = Process(target=getForce02, args=(max02))
     p1.start()
     p2.start()
     

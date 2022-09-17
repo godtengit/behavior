@@ -21,7 +21,7 @@ initials = ""
 
 
 def onPress(key, data, exp, grp, box, mice, trs, inits, test):
-    if key == keyboard.KEY.esc: 
+    if key == keyboard.Key.esc: 
         return False
         sys.exit(os.EX_USAGE)
     try:
