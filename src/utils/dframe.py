@@ -57,7 +57,7 @@ def cleanData(data):
 
 
 def cleanExit(data, experiment, group, boxes, mice, trials, initials, test):
-    df = makeDF(data, boxes, mice, trials)
+    df = makeDF(data, boxes, mice, trials, test)
     makeExcel(df, experiment, test, group, initials)
 
     if test == "grip":

@@ -83,8 +83,8 @@ if __name__ == "__main__":
             mice, trials, initials, test))
     listener.start()
 
-    p1 = Process(target=getForce01, args=(max01))
-    p2 = Process(target=getForce02, args=(max02))
+    p1 = Process(target=getForce01, args=(max01,))
+    p2 = Process(target=getForce02, args=(max02,))
     p1.start()
     p2.start()
     
