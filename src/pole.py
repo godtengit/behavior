@@ -66,7 +66,6 @@ def poleTest(wmin, tmin, tmax, data): # minweight, mintime, maxtime
 
 
 if __name__ == "__main__":
-
     # getInfo(experiment, group, boxes, mice, trials, initials)
 
     # listener = keyboard.Listener(on_press = lambda event:onPress(event, data, experiment, group, boxes, mice, trials, initials, test))
