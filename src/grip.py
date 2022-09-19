@@ -76,20 +76,20 @@ def resetForce(maxData):
     return maxData
 
 
-def keyboardHooks(maxData):
+def keyboardHooks(data, maxData):
     global listener
     # listener = keyboard.Listener(on_press = 
     #     lambda event:onPress(
     #         event, data, experiment, group, boxes, 
     #         mice, trials, initials, test, maxData))
-    listener = keyboard.Listener(on_press = lambda event:onPress(event, maxData))
+    listener = keyboard.Listener(on_press = lambda event:onPress(event, data, maxData))
     listener.start()
     print("Listening...")
 
 
-def main(maxData):
+def main(data, maxData):
     # getInfo(experiment, group, boxes, mice, trials, initials
-    keyboardHooks(maxData)
+    keyboardHooks(data, maxData)
     p1 = Process(target=getForce01, args=(maxData,))
     p2 = Process(target=getForce02, args=(maxData,))
     p1.start()
@@ -100,4 +100,4 @@ def main(maxData):
 
 if __name__ == "__main__":
 
-    main(maxData)
+    main(data, maxData)
