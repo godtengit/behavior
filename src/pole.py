@@ -11,16 +11,17 @@ minWeight = 10
 minTime = 3.0
 maxTime = 20.0
 
-test = "pole"
-experiment = ""
-group = ""
-boxes = ""
-mice = ""
-trials = ""
-initials = ""
+# test = "pole"
+# experiment = ""
+# group = ""
+# boxes = ""
+# mice = ""
+# trials = ""
+# initials = ""
 
 
-def onPress(key, data, exp, grp, box, mice, trs, inits, test):
+def onPress(key, data):
+# def onPress(key, data, exp, grp, box, mice, trs, inits, test):
     if key == keyboard.Key.esc: 
         return False
         sys.exit(os.EX_USAGE)
@@ -33,6 +34,8 @@ def onPress(key, data, exp, grp, box, mice, trs, inits, test):
         print("Removed: {:.3f}".format(r))
     if k in ['enter']:
         cleanExit(data, exp, grp, box, mice, trs, inits, test)
+    if k in ['w']:
+        print("WOW!")
 
 
 def poleTest(wmin, tmin, tmax, data): # minweight, mintime, maxtime
@@ -64,9 +67,10 @@ def poleTest(wmin, tmin, tmax, data): # minweight, mintime, maxtime
 
 if __name__ == "__main__":
 
-    getInfo(experiment, group, boxes, mice, trials, initials)
+    # getInfo(experiment, group, boxes, mice, trials, initials)
 
-    listener = keyboard.Listener(on_press = lambda event:onPress(event, data, experiment, group, boxes, mice, trials, initials, test))
+    # listener = keyboard.Listener(on_press = lambda event:onPress(event, data, experiment, group, boxes, mice, trials, initials, test))
+    listener = keyboard.Listener(on_press = lambda event:onPress(event, data))
     listener.start()
 
     poleTest(minWeight, minTime, maxTime, data)
