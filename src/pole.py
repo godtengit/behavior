@@ -69,7 +69,7 @@ if __name__ == "__main__":
     # getInfo(experiment, group, boxes, mice, trials, initials)
 
     # listener = keyboard.Listener(on_press = lambda event:onPress(event, data, experiment, group, boxes, mice, trials, initials, test))
-    listener = keyboard.Listener(on_press = lambda event:onPress(event, data))
+    listener = keyboard.Listener(on_press=lambda event:onPress(event, data))
     listener.start()
 
     poleTest(minWeight, minTime, maxTime, data)
