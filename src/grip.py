@@ -1,90 +1,103 @@
-import os
-import sys
-from multiprocessing import Process
+from multiprocessing import Process, Manager
 from HX711 import AdvancedHX711, Rate
 from pynput import keyboard
 from utils.prompts import *
 from utils.dframe import *
 
 data = []
-max01 = 0.0
-max02 = 0.0
+maxData = Manager().list([0.0, 0.0])
+listener = None
+# test = "grip"
+# experiment = ""
+# group = ""
+# boxes = 0
+# mice = 0
+# trials = 0
+# initials = ""
 
-test = "grip"
-experiment = ""
-group = ""
-boxes = ""
-mice = ""
-trials = ""
-initials = ""
 
-def onPress(key, data, f1, f2, exp, grp, box, mice, trs, inits, test):
+# def onPress(key, data, exp, grp, box, mice, trs, inits, test, maxData):
+def onPress(key, data, maxData)
     if key == keyboard.Key.esc: 
         return False
-        sys.exit(os.EX_USAGE)
     try:
         k = key.char
     except:
         k = key.name
     if k in ['m']:
-        showData(f1,f2)
+        showData(maxData)
     if k in ['space']:
-        pinData(data, f1, f2)
-        resetForce(f1, f2)
+        pinData(data, maxData)
+        resetForce(maxData)
     if k in ['z']:
-        resetForce(f1, f2)
-    if k in ['enter']:
-        cleanExit(data, exp, grp, box, mice, trs, inits, test)
+        resetForce(maxData)
+    # if k in ['enter']:
+    #     cleanExit(data, exp, grp, box, mice, trs, inits, test)
+    if k in ['w']:
+        print("WOW!")
 
 
-def pinData(data, f1, f2):,
-    data.append(f1)
-    data.append(f2)
-    print("Test #: ", int(len(data)/2))
-    print("Peak 01 (g): {:.3f} - recorded".format(f1))
-    print("Peak 02 (g): {:.3f} - recorded".format(f2))
+def pinData(data, maxData):
+    data.append(maxData)
+    print("Test #: ", len(data))
+    print("Peak 01 (g): {:.3f} - recorded".format(maxData[0]))
+    print("Peak 02 (g): {:.3f} - recorded".format(maxData[1]))
+    return data
 
 
-def showData(f1, f2):
-    print("Peak 01 (g): {:.3f}".format(f1))
-    print("Peak 02 (g): {:.3f}".format(f2))
+def showData(maxData):
+    print("Peak 01 (g): {:.3f}".format(maxData[0]))
+    print("Peak 02 (g): {:.3f}".format(maxData[1]))
 
 
-def getForce01(max01):
-    # Right Hand
-    with AdvancedHX711(24, 23, 3045, 157432, Rate.HZ_80) as hx:
+def getForce01(maxData):
+    # Right Hand orange
+    with AdvancedHX711(27, 17, -3435, 117303, Rate.HZ_80) as hx:
         while True:
-            max01 = max(max01, float(hx.weight(1)))
+            m = float(hx.weight(1)) 
+            if m < 100.0 and m > maxData[0]:
+                maxData[0] = m
 
 
-
-def getForce02(max02):
-    # Left Hand
-    with AdvancedHX711(27, 17, -3082, 115338, Rate.HZ_80) as hx:
+def getForce02(maxData):
+    # Left Hand blue
+    with AdvancedHX711(24, 23, 3191, 141342, Rate.HZ_80) as hx:
         while True:
-            max02 = max(max02, float(hx.weight(1)))
+            m = float(hx.weight(1)) 
+            if m < 100.0 and m > maxData[1]:
+                maxData[1] = m
 
 
-def resetForce(max01, max02):
-    max01 = 0
-    max02 = 0
-    print("Force Reset: {}, {}".format(max01, max02))
-    return max01, max02
+def resetForce(maxData):
+    # global maxData
+    maxData[0] = 0.0
+    maxData[1] = 0.0
+    print("Force Reset: {}, {}".format(maxData[0], maxData[1]))
+    return maxData
+
+
+def keyboardHooks(maxData):
+    global listener
+    # listener = keyboard.Listener(on_press = 
+    #     lambda event:onPress(
+    #         event, data, experiment, group, boxes, 
+    #         mice, trials, initials, test, maxData))
+    listener = keyboard.Listener(on_press = lambda event:onPress(event, maxData))
+    listener.start()
+    print("Listening...")
+
+
+def main(maxData):
+    # getInfo(experiment, group, boxes, mice, trials, initials
+    keyboardHooks(maxData)
+    p1 = Process(target=getForce01, args=(maxData,))
+    p2 = Process(target=getForce02, args=(maxData,))
+    p1.start()
+    p2.start()
+    p1.join()
+    p2.join()
 
 
 if __name__ == "__main__":
 
-    getInfo(experiment, group, boxes, mice, trials, initials)
-
-    listener = keyboard.Listener(on_press = 
-        lambda event:onPress(
-            event, data, max01, max02, 
-            experiment, group, boxes, 
-            mice, trials, initials, test))
-    listener.start()
-
-    p1 = Process(target=getForce01, args=(max01,))
-    p2 = Process(target=getForce02, args=(max02,))
-    p1.start()
-    p2.start()
-    
+    main(maxData)

@@ -1,3 +1,4 @@
+
 def getInfo(experiment, group, boxes, mice, trials, initials):
     experiment = input("Name of experiment: ").strip()
     while not experiment:
@@ -27,3 +28,6 @@ def getInfo(experiment, group, boxes, mice, trials, initials):
         initials = input("Initials: ").strip().upper()
 
     return experiment, group, boxes, mice, trials, initials
+
+
+# if __name__ == "__main__":

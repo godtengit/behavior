@@ -66,3 +66,5 @@ def cleanExit(data, experiment, group, boxes, mice, trials, initials, test):
         print("Total tests: {}".format(int(len(data))))
     
     sys.exit(os.EX_OK)
+
+# if __name__ == "__main__":
